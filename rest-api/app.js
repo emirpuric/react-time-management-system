@@ -1,23 +1,29 @@
 import express from 'express';
-
 require('dotenv').config();
 
-const PORT = 5000;
-const app = express();
+const authRoute = require('./routes/auth');
+const userRoute = require('./routes/users');
+const taskRoute = require('./routes/tasks');
 
 const mongoose = require('mongoose');
 mongoose.connect(process.env.DB_URI, { useNewUrlParser: true,  useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
-app.listen(PORT, () => {
-    console.log(`Time Management System API server running on port ${PORT}`)
-});
+const PORT = 5000;
+const app = express();
 
 app.use(express.json());
 
+const API_PREFIX = 'api/v1';
+
+app.use(API_PREFIX, authRoute);
+app.use(API_PREFIX, userRoute);
+app.use(API_PREFIX, taskRoute);
+
+
 //TODO REMOVE
-const Test = require("./model/test");
+const Test = require('./model/test');
 
 app.get('/', (req, res) => {
     Test.find({}, (error, tests) => {
@@ -36,4 +42,10 @@ app.post('/', async (req, res) => {
     } catch(error) {
         res.status(400).send(error);
     }
+});
+
+//END TODO
+
+app.listen(PORT, () => {
+    console.log(`Time Management System API server running on port ${PORT}`)
 });
