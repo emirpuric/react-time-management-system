@@ -15,7 +15,7 @@ const app = express();
 
 app.use(express.json());
 
-const API_PREFIX = 'api/v1';
+const API_PREFIX = '/api/v1';
 
 app.use(API_PREFIX, authRoute);
 app.use(API_PREFIX, userRoute);
