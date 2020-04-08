@@ -1,37 +1,56 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 import App from './App'
 
 //Layouts
 import HomeLayout from './layouts/HomeLayout/HomeLayout'
 import PrivateLayout from './layouts/PrivateLayout/PrivateLayout'
+import PublicLayout from './layouts/PublicLayout/PublicLayout'
 
 //Componets
 import Home from './components/Home/Home';
 import TaskList from './components/TaskList/TaskList';
+import UserList from './components/UserList/UserList';
+import About from './components/About/About';
 
-const RouteWrapper = (props) => {
-    const Layout = props.layout;
-    const Component = props.component;
-    const Wrapped = (props) => (
-        <Layout>
-            <Component />
-        </Layout>
-    );
+let currentUser = null//{username: 'Emir'};
 
-    console.log(props.path);
+const LayoutRoute = ({ component: Component, layout: Layout, ...rest }) => (
+    <Route {...rest} render={(props) => (<Layout> <Component {...props} /> </Layout>)} />
+);
 
-    return (
-        <Route path={props.path} render={Wrapped} />
-    );
+const PrivateRoute = (props) => {
+    if (currentUser) {
+        return (
+            <LayoutRoute {...props} />
+        );
+    } else {
+        return (
+            <Redirect to='/' />
+        );
+    }
+};
+
+const PublicRoute = props => {
+    if (currentUser) {
+        return (
+            <Redirect to='/tasks' />
+        );
+    } else {
+        return (
+            <LayoutRoute {...props} />
+        );
+    }
 };
 
 const AppRoutes = () => (
     <App>
         <Switch>
-            <RouteWrapper path="/tasks" component={TaskList} layout={PrivateLayout} />
-            <RouteWrapper path="/" component={Home} layout={HomeLayout} />
+            <PrivateRoute exact path="/tasks" component={TaskList} layout={PrivateLayout} />
+            <PrivateRoute exact path="/users" component={UserList} layout={PrivateLayout} />
+            <PublicRoute exact path="/" component={Home} layout={HomeLayout} />
+            <LayoutRoute exact path="/about" component={About} layout={PublicLayout} />
         </Switch>
     </App>
 );
