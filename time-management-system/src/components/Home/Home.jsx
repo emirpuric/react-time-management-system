@@ -6,7 +6,7 @@ const Home = () => {
     const [page, showPage] = useState('login');
     let form, switchMessage;
 
-    if (page == 'login') {
+    if (page ==='login') {
         form = <Login />
         switchMessage = (
             <a onClick={() => showPage('register')}>Sign Up</a>
