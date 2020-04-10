@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { useUsernameInput, usePasswordInput } from '../../hooks/input-hook';
+import { Button, Form } from 'react-bootstrap';
 import { StateContext } from '../../contexts';
 import { login } from '../../api-client';
 
@@ -39,32 +40,35 @@ const Login = () => {
 
     const handleSubmit = event => {
         event.preventDefault();
-        login({ username: usernameInput.value, password: passwordInput.value }, resp => {
-            alert(JSON.stringify(resp))
-        }, error => {
-            alert(JSON.stringify(error.response))
-        });
-        //localStorage.setItem('current-user', {username: 'emirp'});
-        //stateContext.setCurrentUser({username: 'emirp'});
+        // login({ username: usernameInput.value, password: passwordInput.value }, resp => {
+        //     alert(JSON.stringify(resp))
+        // }, error => {
+        //     alert(JSON.stringify(error.response))
+        // });
+        localStorage.setItem('current-user', {username: 'emirp'});
+        stateContext.setCurrentUser({username: 'emirp'});
     };
 
     return (
         <div>
-            <h3>Login</h3>
+            <h3>Sign in</h3>
             
-            <form onSubmit={handleSubmit}>
-                <label>
-                    Username:
-                    <input type="text" {...usernameInput.bind} />
-                    <div>{usernameInput.errorMessage}</div>
-                </label>
-                <label>
-                    Password:
-                    <input type="text" {...passwordInput.bind} />
-                    <div>{passwordInput.errorMessage}</div>
-                </label>
-                <input type="submit" value="Submit" disabled={submitDisabled} />
-            </form>
+            <Form className="Home-form" onSubmit={handleSubmit}>
+                <Form.Group controlId="formUsername">
+                    <Form.Label>Username</Form.Label>
+                    <Form.Control type="text" {...usernameInput.bind} />
+                    <Form.Text className="text-muted Alert"> {usernameInput.errorMessage} </Form.Text>
+                </Form.Group>
+
+                <Form.Group controlId="formPassword">
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control type="password" />
+                </Form.Group>
+                
+                <Button variant="primary" type="submit">
+                    Sign in
+                </Button>
+            </Form>
         </div>
     );
 }

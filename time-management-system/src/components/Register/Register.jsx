@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useUsernameInput, usePasswordInput } from '../../hooks/input-hook'
+import { Button, Form } from 'react-bootstrap';
 
 const Register = () => {
     const [submitDisabled, setSubmitDisabled] = useState(true);
@@ -43,26 +44,47 @@ const Register = () => {
 
     return (
         <div>
-            <h3>Login</h3>
+            <h3>Create an account</h3>
             
-            <form onSubmit={handleSubmit}>
-                <label>
-                    Username:
-                    <input type="text" {...usernameInput.bind} />
-                    <div>{usernameInput.errorMessage}</div>
-                </label>
-                <label>
-                    Password:
-                    <input type="password" {...passwordInput.bind} />
-                    <div>{passwordInput.errorMessage}</div>
-                </label>
-                <label>
-                    Confirm Password:
-                    <input type="password" {...confirmPassInput.bind} />
-                    <div>{passwordInput.errorMessage}</div>
-                </label>
-                <input type="submit" value="Submit" disabled={submitDisabled} />
-            </form>
+            <Form className="Home-form">
+                <div className="row">
+                    <div className="col-6">
+                        <Form.Group controlId="formUsername">
+                            <Form.Label>First Name</Form.Label>
+                            <Form.Control type="text" />
+                            <Form.Text className="text-muted Alert"></Form.Text>
+                        </Form.Group>
+                    </div>
+
+                    <div className="col-6">
+                        <Form.Group controlId="formUsername">
+                            <Form.Label>Last Name</Form.Label>
+                            <Form.Control type="text" />
+                            <Form.Text className="text-muted Alert"></Form.Text>
+                        </Form.Group>
+                    </div>
+                </div>
+
+                <Form.Group controlId="formUsername">
+                    <Form.Label>Username</Form.Label>
+                    <Form.Control type="text" {...usernameInput.bind} />
+                    <Form.Text className="text-muted Alert"> {usernameInput.errorMessage} </Form.Text>
+                </Form.Group>
+
+                <Form.Group controlId="formPassword">
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control type="password" />
+                </Form.Group>
+
+                <Form.Group controlId="formPassConfirm">
+                    <Form.Label>Confirm Password</Form.Label>
+                    <Form.Control type="password" />
+                </Form.Group>
+                
+                <Button variant="primary" type="submit">
+                    Sign up
+                </Button>
+            </Form>
         </div>
     );
 }

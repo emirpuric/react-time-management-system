@@ -1,0 +1,22 @@
+.Home-form .form-group {
+    text-align: left;
+}
+
+.Home-form button {
+    margin-top: 20px;
+}
+
+h3 {
+    font-size: 20px !important;
+    margin-bottom: 30px !important;
+}
+
+.Bottom-message {
+    margin-top: 20px;
+}
+
+.Bottom-message a {
+    color: #0095f6 !important;
+    cursor: pointer;
+}
+

@@ -40,5 +40,18 @@
 }
 
 .Wrong-input {
-  border: 1px solid red;
+  border: 1px solid red !important;
+}
+
+.Alert {
+  color: red;
+}
+
+.Nav-link {
+  cursor: pointer;
+  margin-left: 20px;
+}
+
+.Nav-logo {
+  cursor: pointer;
 }

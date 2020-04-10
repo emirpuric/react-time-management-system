@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './Home.css'
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 
@@ -9,22 +10,25 @@ const Home = () => {
     if (page ==='login') {
         form = <Login />
         switchMessage = (
-            <a onClick={() => showPage('register')}>Sign Up</a>
+            <span>
+                Don't have an account? <a href onClick={() => showPage('register')}>Sign up</a>
+            </span>
         )
     } else {
         form = <Register />
         switchMessage = (
-            <a onClick={() => showPage('login')}>Login</a>
+            <span>
+                Have an account? <a href onClick={() => showPage('login')}>Log in</a>
+            </span>
         )
     }
 
     return (
         <div>
-            <h3>Home</h3>
             <div>
                 {form}
             </div>
-            <div>
+            <div className="Bottom-message">
                 {switchMessage}
             </div>
         </div>

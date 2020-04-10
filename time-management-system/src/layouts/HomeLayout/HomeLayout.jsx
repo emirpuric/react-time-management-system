@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './HomeLayout.css';
 import logo from './logo.png';
 
@@ -10,6 +11,9 @@ const HomeLayout = props => {
             </header>
             <div className="Home-content">
                 {props.children}
+            </div>
+            <div>
+                <Link className='Footer-link' to='/about'>About</Link>
             </div>
         </div>
     );

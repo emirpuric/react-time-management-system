@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 
 const ERROR_CLASS = 'Wrong-input';
 
@@ -8,7 +8,7 @@ const useInputBase = (initialValue, validationRules) => {
     const [errorMessage, setErrorMessage] = useState('');
     const [errorClassName, setErrorClassName] = useState('');
 
-    const setValid = useCallback((valid, errorMessage) => {
+    const setValid = (valid, errorMessage) => {
         setDirty(true);
         if (valid) {
             setErrorMessage('');
@@ -17,7 +17,7 @@ const useInputBase = (initialValue, validationRules) => {
             setErrorMessage(errorMessage);
             setErrorClassName(ERROR_CLASS);
         }
-    });
+    };
 
     return {
         value,
@@ -26,10 +26,10 @@ const useInputBase = (initialValue, validationRules) => {
         validationRules: validationRules,
         bind: {
             value,
-            onChange: useCallback(event => {
+            onChange: event => {
                 setValue(event.target.value);
                 setDirty(true);
-            }),
+            },
             className: errorClassName
         },
         setValid: setValid
