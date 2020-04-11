@@ -11,14 +11,14 @@ const Home = () => {
         form = <Login />
         switchMessage = (
             <span>
-                Don't have an account? <a href onClick={() => showPage('register')}>Sign up</a>
+                Don't have an account? <a href="" onClick={() => showPage('register')}>Sign up</a>
             </span>
         )
     } else {
         form = <Register />
         switchMessage = (
             <span>
-                Have an account? <a href onClick={() => showPage('login')}>Log in</a>
+                Have an account? <a href="" onClick={() => showPage('login')}>Log in</a>
             </span>
         )
     }

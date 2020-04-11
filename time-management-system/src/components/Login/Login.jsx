@@ -45,8 +45,9 @@ const Login = () => {
         // }, error => {
         //     alert(JSON.stringify(error.response))
         // });
-        localStorage.setItem('current-user', {username: 'emirp'});
-        stateContext.setCurrentUser({username: 'emirp'});
+        const user = { username: 'emirp', roles: 4 };
+        localStorage.setItem('current-user', JSON.stringify(user));
+        stateContext.setCurrentUser(user);
     };
 
     return (

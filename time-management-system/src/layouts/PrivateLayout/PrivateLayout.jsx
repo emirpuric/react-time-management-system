@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './PrivateLayout.css';
 import { Navbar, Nav, NavItem } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap';
 import logo from '../../logo.png';
+import { StateContext, hasManagerRole } from '../../contexts';
 
 const PrivateLayout = props => {
-    const showUsers = true;
+    const stateContext = useContext(StateContext);
+    const showUsers = hasManagerRole(stateContext.currentUser.roles);
 
     return (
         <div className="Private-layout">

@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const TaskList = () => (
-    <div>
-        <h3>TaskList</h3>
-    </div>
-);
+const TaskList = () => {
+    const [tasksState, setTastsState] = useState({ tasks: null, selectedTask: null, view: 'list' });
+    
+    return (
+        <div>
+            <h3>TaskList</h3>
+        </div>
+    );
+};
 
 export default TaskList;
