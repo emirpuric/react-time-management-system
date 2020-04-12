@@ -5,7 +5,7 @@ const authService = require('../services/auth-service');
 router.post('/login', async (req, res) => {
     try {
         const user = await userService.getByUsername(req.body.username);
-        const isPasswordValid = await authService.verifyPassword(user.password, req.body.password);
+        const isPasswordValid = authService.verifyPassword(user.password, req.body.password);
 
         if (isPasswordValid) {
             const token = authService.createJWT(user);

@@ -14,8 +14,8 @@ class AuthService {
         return jwt.sign(jwdUserData, process.env.ACCESS_TOKEN_SECRET);
     }
 
-    async verifyPassword(hashedPassword, password) {
-        await bcrypt.compare(hashedPassword, password);
+    verifyPassword(hashedPassword, password) {
+        return bcrypt.compareSync(password, hashedPassword);
     }
 
     getCurrentUserData(user, token) {

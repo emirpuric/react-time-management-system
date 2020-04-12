@@ -12,8 +12,8 @@ class UserService {
             throw "This choice of username has already been assigned"
         }
 
-        const salt = await bcrypt.genSalt();
-        const hashedPassword = await bcrypt.hash(user.password, salt);
+        const salt = bcrypt.genSaltSync();
+        const hashedPassword = bcrypt.hashSync(user.password, 10);
 
         const userModel = new User({
             username: user.username,
