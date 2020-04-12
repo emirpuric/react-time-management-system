@@ -2,36 +2,37 @@ import React, { useState } from 'react';
 import './Home.css'
 import Login from '../Login/Login';
 import Register from '../Register/Register';
+import { HomeContext, LOGIN, REGISTER } from '../../contexts';
 
 const Home = () => {
-    const [page, showPage] = useState('login');
+    const [page, showPage] = useState(LOGIN);
     let form, switchMessage;
 
-    if (page ==='login') {
+    if (page === LOGIN) {
         form = <Login />
         switchMessage = (
             <span>
-                Don't have an account? <a href="" onClick={() => showPage('register')}>Sign up</a>
+                Don't have an account? <button className="Link-button" onClick={() => showPage(REGISTER)}>Sign up</button>
             </span>
         )
     } else {
         form = <Register />
         switchMessage = (
             <span>
-                Have an account? <a href="" onClick={() => showPage('login')}>Log in</a>
+                Have an account? <button className="Link-button" onClick={() => showPage(LOGIN)}>Log in</button>
             </span>
         )
     }
 
     return (
-        <div>
+        <HomeContext.Provider value={showPage}>
             <div>
                 {form}
             </div>
             <div className="Bottom-message">
                 {switchMessage}
             </div>
-        </div>
+        </HomeContext.Provider>
     )
 }
 

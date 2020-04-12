@@ -8,3 +8,7 @@ const axiosInstance = axios.create({
 export const login = (credentials, success, fail) => {
     axiosInstance.post('login', credentials).then(success).catch(fail);
 };
+
+export const signup = (user, success, fail) => {
+    axiosInstance.post('register', user).then(success).catch(fail);
+}

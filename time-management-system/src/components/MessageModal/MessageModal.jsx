@@ -1,9 +1,9 @@
 import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 
-export const MessageModal = ({ show: show, header: header, message: message, onHide: resetState }) => {
+export const MessageModal = ({ show, header, message, onHide: resetState }) => {
     const handleClose = () => {
-        resetState({ show: false, header: null, message: null })
+        resetState({ show: false, header: null, message: null });
     }
 
     return (

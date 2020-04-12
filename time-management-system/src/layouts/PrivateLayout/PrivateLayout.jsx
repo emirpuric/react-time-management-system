@@ -1,13 +1,20 @@
 import React, { useContext } from 'react';
 import './PrivateLayout.css';
-import { Navbar, Nav, NavItem } from 'react-bootstrap'
+import { Navbar, Nav, NavItem, NavDropdown } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap';
 import logo from '../../logo.png';
 import { StateContext, hasManagerRole } from '../../contexts';
 
 const PrivateLayout = props => {
     const stateContext = useContext(StateContext);
-    const showUsers = hasManagerRole(stateContext.currentUser.roles);
+    const currentUser = stateContext.currentUser;
+    const showUsers = hasManagerRole(currentUser.roles);
+    const editUserHref = `/user/${currentUser.username}`;
+
+    const handleLogout = () => {
+        localStorage.removeItem('current-user');
+        stateContext.setCurrentUser(null);
+    };
 
     return (
         <div className="Private-layout">
@@ -30,7 +37,14 @@ const PrivateLayout = props => {
                         }
                         <LinkContainer to="/about">
                             <NavItem eventKey={2} className="Nav-link">About</NavItem>
-                        </LinkContainer>  
+                        </LinkContainer>
+                        <NavDropdown title={currentUser.username}>
+                            <LinkContainer to={editUserHref}>
+                                <NavDropdown.Item eventKey={3}>Edit user account</NavDropdown.Item>
+                            </LinkContainer>
+                            <NavDropdown.Divider />
+                            <NavDropdown.Item href="" onClick={handleLogout} >Log out</NavDropdown.Item>
+                        </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>

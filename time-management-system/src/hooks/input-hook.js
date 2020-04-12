@@ -5,6 +5,7 @@ const ERROR_CLASS = 'Wrong-input';
 const useInputBase = (initialValue, validationRules) => {
     const [value, setValue] = useState(initialValue);
     const [isDirty, setDirty] = useState(false);
+    const [isValid, setIsValid] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [errorClassName, setErrorClassName] = useState('');
 
@@ -13,15 +14,18 @@ const useInputBase = (initialValue, validationRules) => {
         if (valid) {
             setErrorMessage('');
             setErrorClassName('');
+            setIsValid(true);
         } else {
             setErrorMessage(errorMessage);
             setErrorClassName(ERROR_CLASS);
+            setIsValid(false);
         }
     };
 
     return {
         value,
         isDirty,
+        isValid,
         errorMessage,
         validationRules: validationRules,
         bind: {

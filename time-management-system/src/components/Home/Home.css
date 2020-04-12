@@ -15,8 +15,15 @@ h3 {
     margin-top: 20px;
 }
 
-.Bottom-message a {
+.Bottom-message button.Link-button {
+    padding: 0;
+    border: none;
+    background: none;
     color: #0095f6 !important;
     cursor: pointer;
+}
+
+.Bottom-message button.Link-button:focus {
+    outline: none;
 }
 

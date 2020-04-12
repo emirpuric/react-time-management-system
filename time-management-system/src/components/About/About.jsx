@@ -2,8 +2,6 @@ import React from 'react';
 import './About.css'
 
 const About = () => {
-    localStorage.removeItem('current-user');
-
     return (
         <div>
             <h3>About</h3>

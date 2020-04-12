@@ -8,6 +8,7 @@ export const TasksContext = React.createContext(null);
 
 export const UsersContext = React.createContext(null);
 
+
 export const USER_MANAGER_ROLE = 2;
 export const ADMIN_ROLE = 4;
 export const MANAGER_ROLE = USER_MANAGER_ROLE | ADMIN_ROLE;
@@ -23,3 +24,10 @@ export const hasManagerRole = roles => {
 export const hasAdminRole = roles => {
     return (roles & ADMIN_ROLE) > 0;
 };
+
+
+
+export const LOGIN = 'login';
+export const REGISTER = 'register';
+
+export const HomeContext = React.createContext(null);
