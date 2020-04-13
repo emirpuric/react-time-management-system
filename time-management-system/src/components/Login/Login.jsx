@@ -3,10 +3,13 @@ import { useUsernameInput, usePasswordInput } from '../../hooks/input-hook';
 import { Button, Form } from 'react-bootstrap';
 import { login } from '../../api-client';
 import MessageModal from '../MessageModal/MessageModal';
+import { StateContext } from '../../contexts';
+import { useContext } from 'react';
 
 const Login = () => {
     const [submitDisabled, setSubmitDisabled] = useState(true);
     const [messageState, setMessageState] = useState({ show: false, header: null, message: null });
+    const stateContext = useContext(StateContext);
 
     const usernameInput = useUsernameInput('');
     const passwordInput = usePasswordInput('');
@@ -57,11 +60,20 @@ const Login = () => {
         };
 
         const success = (resp) => {
-            alert(JSON.stringify(resp));
+            const user = resp.data.user;
+            const jwt = resp.data.jwt;
+
+            if (user && jwt) {
+                localStorage.setItem('current-user', JSON.stringify(user));
+                localStorage.setItem('auth-token', jwt);
+                stateContext.setCurrentUser(user);
+            } else {
+                setMessageState({ show: true, header: 'Error occured', message: 'An Unexpected Error Occurred' });
+            }
         };
 
         const fail = (error) => {
-            setMessageState({ show: true, header: 'Error occured', message: JSON.stringify(error.response) });
+            setMessageState({ show: true, header: 'Error occured', message: error.response.data.error });
         };
 
         login(credentials, success, fail);

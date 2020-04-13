@@ -13,9 +13,11 @@ class UserService {
         }
 
         const salt = bcrypt.genSaltSync();
-        const hashedPassword = bcrypt.hashSync(user.password, 10);
+        const hashedPassword = bcrypt.hashSync(user.password, salt);
 
         const userModel = new User({
+            firstName: user.firstName,
+            lastName: user.lastName,
             username: user.username,
             password: hashedPassword,
             preferredWorkingHoursPerDay: user.preferredWorkingHoursPerDay || 0,
@@ -25,8 +27,30 @@ class UserService {
         return await userModel.save();
     }
 
+    async get(id) {
+        return await User.findOne({ _id: id }).exec();
+    }
+
     async update(user) {
-        return "Radi";
+        if (user.password && user.password !== user.passConfirm) {
+            throw "Passwords Don't Match";
+        }
+
+        if (user.username && user.username && await this.usernameExists(user.username)) {
+            throw "This choice of username has already been assigned"
+        }
+
+        const userId = user.id;
+        delete user.id;
+
+        if (user.password) {
+            const salt = bcrypt.genSaltSync();
+            const hashedPassword = bcrypt.hashSync(user.password, salt);
+            user.password = hashedPassword;
+            delete user.passConfirm;
+        }
+
+        return await User.updateOne({_id: userId}, user, {upsert: true}).exec();
     }
 
     async usernameExists(username) {
@@ -35,6 +59,10 @@ class UserService {
 
     async getByUsername(username) {
         return await User.findOne({ username: username }).exec();
+    }
+
+    async getAll() {
+        return await User.find({}, 'firstName lastName username').exec();
     }
 
 }

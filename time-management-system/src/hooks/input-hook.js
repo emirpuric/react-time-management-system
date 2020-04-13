@@ -36,7 +36,8 @@ const useInputBase = (initialValue, validationRules) => {
             },
             className: errorClassName
         },
-        setValid: setValid
+        setValue,
+        setValid
     };
 }
 

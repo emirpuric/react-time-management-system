@@ -21,7 +21,7 @@ const LayoutRoute = ({ component: Component, layout: Layout, ...rest }) => (
     <Route {...rest} render={(props) => (<Layout> <Component {...props} /> </Layout>)} />
 );
 
-const AdminRoute = ({ roles: roles, ...rest }) => {
+const AdminRoute = ({ roles, ...rest }) => {
     const stateContext = useContext(StateContext);
     const currentUser = stateContext.currentUser;
 
@@ -71,14 +71,14 @@ const AppRoutes = () => {
 
     return (
         <App>
-            <StateContext.Provider value={ { currentUser: currentUser, setCurrentUser: setCurrentUser } }>
+            <StateContext.Provider value={ { currentUser, setCurrentUser } }>
                 <Switch>
                     <PrivateRoute exact path="/tasks" component={TaskList} layout={PrivateLayout} />
                     <PrivateRoute exact path="/task" component={Task} layout={PrivateLayout} />
                     <PrivateRoute exact path="/task/:taskId" component={Task} layout={PrivateLayout} />
                     <AdminRoute exact path="/users" component={UserList} layout={PrivateLayout} roles={ MANAGER_ROLE } />
                     <AdminRoute exact path="/user" component={User} layout={PrivateLayout} roles={ MANAGER_ROLE } />
-                    <AdminRoute exact path="/user/:id" component={User} layout={PrivateLayout} roles={ MANAGER_ROLE } />
+                    <PrivateRoute exact path="/user/:id" component={User} layout={PrivateLayout} />
                     <AdminRoute exact path="/user/:id/tasks" component={TaskList} layout={PrivateLayout} roles={ ADMIN_ROLE } />
                     <AdminRoute exact path="/user/:id/task" component={Task} layout={PrivateLayout} roles={ ADMIN_ROLE } />
                     <AdminRoute exact path="/user/:id/task/:taskId" component={Task} layout={PrivateLayout} roles={ ADMIN_ROLE } />

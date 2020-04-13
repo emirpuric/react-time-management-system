@@ -20,10 +20,12 @@ class AuthService {
 
     getCurrentUserData(user, token) {
         return {
-            id: user._id,
-            username: user.username,
-            preferredWorkingHoursPerDay: user.preferredWorkingHoursPerDay,
-            roles: user.roles,
+            user: {
+                id: user._id,
+                username: user.username,
+                preferredWorkingHoursPerDay: user.preferredWorkingHoursPerDay,
+                roles: user.roles
+            },
             jwt: token
         };
     }

@@ -9,7 +9,7 @@ const PrivateLayout = props => {
     const stateContext = useContext(StateContext);
     const currentUser = stateContext.currentUser;
     const showUsers = hasManagerRole(currentUser.roles);
-    const editUserHref = `/user/${currentUser.username}`;
+    const editUserHref = `/user/${currentUser.id}`;
 
     const handleLogout = () => {
         localStorage.removeItem('current-user');

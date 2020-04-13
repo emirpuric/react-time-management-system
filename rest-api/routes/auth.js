@@ -19,7 +19,7 @@ router.post('/login', async (req, res) => {
         }
     } catch(error) {
         res.status(400).send({
-            error: error
+            error: 'You have entered an invalid email address / password combination.'
         });
     }
 });
