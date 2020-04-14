@@ -7,7 +7,7 @@ const hasAdminRole = (roles) => {
     return (roles & 4) > 0;
 } 
 
-router.get('/task/:id', async (req, res) => {
+router.get('/task/:id', verifyToken, async (req, res) => {
     const id = req.params.id;
 
     if (!id) {
@@ -29,7 +29,7 @@ router.get('/task/:id', async (req, res) => {
     }
 });
 
-router.post('/task', async (req, res) => {
+router.post('/task', verifyToken, async (req, res) => {
     try {
         await taskService.create(req.body);
         res.status(200).send();
@@ -38,7 +38,7 @@ router.post('/task', async (req, res) => {
     }
 });
 
-router.put('/task', async (req, res) => {
+router.put('/task', verifyToken, async (req, res) => {
     try {
         await taskService.update(req.body);
         res.status(200).send();
@@ -47,7 +47,7 @@ router.put('/task', async (req, res) => {
     }
 });
 
-router.delete('/task/:id', async (req, res) => {
+router.delete('/task/:id', verifyToken, async (req, res) => {
     const id = req.params.id;
 
     if (!id) {

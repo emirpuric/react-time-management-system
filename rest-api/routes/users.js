@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const userService = require('../services/user-service');
+const verifyToken = require('../helper/auth-helper');
 
-router.get('/user/:id', async (req, res) => {
+router.get('/user/:id', verifyToken, async (req, res) => {
     const id = req.params.id;
 
     if (!id) {
@@ -24,7 +25,7 @@ router.get('/user/:id', async (req, res) => {
     }
 });
 
-router.put('/user', async (req, res) => {
+router.put('/user', verifyToken, async (req, res) => {
     try {
         await userService.update(req.body);
         res.status(200).send();
@@ -35,7 +36,7 @@ router.put('/user', async (req, res) => {
     }
 });
 
-router.delete('/user/:id', async (req, res) => {
+router.delete('/user/:id', verifyToken, async (req, res) => {
     const id = req.params.id;
 
     if (!id) {
@@ -50,7 +51,7 @@ router.delete('/user/:id', async (req, res) => {
     }
 });
 
-router.get('/users/', async (req, res) => {
+router.get('/users/', verifyToken, async (req, res) => {
     const users = await userService.getAll();
     res.status(200).send(users);
 });
