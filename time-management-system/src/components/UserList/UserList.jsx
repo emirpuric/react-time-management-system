@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { getUsers } from '../../api-client';
 import './UserList.css';
 
@@ -20,9 +20,12 @@ const UserList = () => {
 
     if (users) {
         userList = users.map(user => (
-            <div key={user.id}>
+            <div className="User-item" key={user.id}>
                 <div>{user.firstName} {user.lastName}</div>
-                <div>{user.username}</div>
+                <div className='User-item-row'>
+                    <div className="User-item-username">{user.username}</div>
+                    <Link className='User-action-link' to='/about'>Edit</Link>
+                </div>
             </div>
         ));   
     }

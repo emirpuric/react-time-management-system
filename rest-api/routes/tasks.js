@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const taskService = require('../services/task-service');
+const userService = require('../services/user-service');
 
 router.get('/task/:id', async (req, res) => {
     const id = req.params.id;
@@ -58,8 +59,13 @@ router.delete('/task/:id', async (req, res) => {
 
 router.get('/user/:userId/tasks', async (req, res) => {
     const userId = req.params.userId;
+    const user = await userService.getPreferredWorkingHoursPerDay(userId);
+    const preferredWorkingHoursPerDay = user.preferredWorkingHoursPerDay
     const tasks = await taskService.getForUser(userId);
-    res.status(200).send(tasks);
+    res.status(200).send({
+        preferredWorkingHoursPerDay,
+        tasks
+    });
 });
 
 module.exports = router;

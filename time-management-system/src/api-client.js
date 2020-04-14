@@ -39,8 +39,8 @@ export const getUsers = (success, fail) => {
 
 // TASK ACTIONS
 
-export const getTasks = (data, success, fail) => {
-    axiosInstance.get('tasks', getHeader()).then(success).catch(fail);
+export const getTasks = (userId, success, fail) => {
+    axiosInstance.get('/user/' + userId + '/tasks', getHeader()).then(success).catch(fail);
 }
 
 export const getTask = (id, success, fail) => {

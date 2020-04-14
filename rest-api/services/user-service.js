@@ -31,6 +31,10 @@ class UserService {
         return await User.findOne({ _id: id }).exec();
     }
 
+    async getPreferredWorkingHoursPerDay(userId) {
+        return await User.findOne({ _id: userId }, 'preferredWorkingHoursPerDay').exec();
+    }
+
     async update(user) {
         if (user.password && user.password !== user.passConfirm) {
             throw "Passwords Don't Match";
