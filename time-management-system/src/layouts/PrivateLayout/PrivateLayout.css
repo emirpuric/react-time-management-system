@@ -21,3 +21,12 @@ h3 {
 .Form-buttons {
     overflow: hidden;
 }
+
+.Logged-user {
+    margin-left: 500px;
+}
+
+.Logged-user a {
+    padding-top: 0 !important;
+    color: #212529 !important;
+}

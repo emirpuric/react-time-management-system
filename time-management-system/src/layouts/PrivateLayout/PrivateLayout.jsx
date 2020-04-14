@@ -38,7 +38,7 @@ const PrivateLayout = props => {
                         <LinkContainer to="/about">
                             <NavItem eventKey={2} className="Nav-link">About</NavItem>
                         </LinkContainer>
-                        <NavDropdown title={currentUser.username}>
+                        <NavDropdown title={currentUser.username} className="Logged-user">
                             <LinkContainer to={editUserHref}>
                                 <NavDropdown.Item eventKey={3}>Edit user account</NavDropdown.Item>
                             </LinkContainer>

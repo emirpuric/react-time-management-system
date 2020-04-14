@@ -8,7 +8,7 @@ import { StateContext } from '../../contexts';
 import 'react-datepicker/dist/react-datepicker.css';
 import './Task.css'
 import { useRequiredInput } from '../../hooks/input-hook';
-import { getTask, createTask, updateTask } from '../../api-client';
+import { getTask, createTask, updateTask, deleteTask } from '../../api-client';
 
 const Task = (props) => {
     const currentDate = new Date();
@@ -142,6 +142,18 @@ const Task = (props) => {
             createTask(task, success, fail);
         }
     };
+
+    const handleDeleteTask = () => {
+        const success = (resp) => {
+            setMessageState({ show: true, header: 'Delete Task', message: 'Task deleted' });
+        };
+
+        const fail = () => {
+            setMessageState({ show: true, header: 'Delete Task', message: 'Error occured' });
+        }; 
+
+        deleteTask(taskId, success, fail);
+    };
     
     return (
         <div className="Form-wrapper">
@@ -149,6 +161,14 @@ const Task = (props) => {
 
             {loader &&
             <Spinner animation="border" variant="primary" />
+            }
+
+            {taskId &&
+            <div className="Task-action">
+                <Button variant="danger" className="float-right" onClick={handleDeleteTask}>
+                    Delete
+                </Button>
+            </div>
             }
 
             <Form className="Home-form" onSubmit={handleSubmit}>

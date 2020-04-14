@@ -54,3 +54,7 @@ export const updateTask = (task, success, fail) => {
 export const createTask = (task, success, fail) => {
     axiosInstance.post('task', task, getHeader()).then(success).catch(fail);
 };
+
+export const deleteTask = (id, success, fail) => {
+    axiosInstance.delete('task/' + id, getHeader()).then(success).catch(fail);
+};

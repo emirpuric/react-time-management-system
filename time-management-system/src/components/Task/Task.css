@@ -5,3 +5,7 @@
 .react-datepicker button {
     margin-top: 0;
 }
+
+.Task-action {
+    overflow: hidden;
+}
