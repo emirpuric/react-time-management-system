@@ -1,9 +1,12 @@
 import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 
-export const MessageModal = ({ show, header, message, onHide: resetState }) => {
+export const MessageModal = ({ show, header, message, onHide: resetState, closeAction }) => {
     const handleClose = () => {
         resetState({ show: false, header: null, message: null });
+        if (closeAction) {
+            closeAction();
+        }
     }
 
     return (

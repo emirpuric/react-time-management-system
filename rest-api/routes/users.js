@@ -19,6 +19,8 @@ router.get('/user/:id', async (req, res) => {
             preferredWorkingHoursPerDay: user.preferredWorkingHoursPerDay,
             roles: user.roles
         });
+    } else {
+        res.status(400).send();
     }
 });
 

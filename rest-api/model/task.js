@@ -15,7 +15,12 @@ const taskSchema = new Schema({
         type: Number,
         required: true,
         min: 0
-    }
+    },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'User',
+        required: true
+    },
 });
 
 module.exports = mongoose.model('Task', taskSchema);

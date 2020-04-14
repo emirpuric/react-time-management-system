@@ -47,7 +47,7 @@ const User = (props) => {
                 history.push('/');
             });
         }
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const onCancel = useCallback(() => {
         history.push('/users');

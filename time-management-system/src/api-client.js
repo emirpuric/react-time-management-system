@@ -23,6 +23,8 @@ export const signup = (user, success, fail) => {
     axiosInstance.post('register', user).then(success).catch(fail);
 };
 
+//USER ACTIONS
+
 export const getUser = (id, success, fail) => {
     axiosInstance.get('user/' + id, getHeader()).then(success).catch(fail);
 };
@@ -33,4 +35,22 @@ export const updateUser = (user, success, fail) => {
 
 export const getUsers = (success, fail) => {
     axiosInstance.get('users', getHeader()).then(success).catch(fail);
+};
+
+// TASK ACTIONS
+
+export const getTasks = (data, success, fail) => {
+    axiosInstance.get('tasks', getHeader()).then(success).catch(fail);
+}
+
+export const getTask = (id, success, fail) => {
+    axiosInstance.get('task/' + id, getHeader()).then(success).catch(fail);
+};
+
+export const updateTask = (task, success, fail) => {
+    axiosInstance.put('task', task, getHeader()).then(success).catch(fail);
+};
+
+export const createTask = (task, success, fail) => {
+    axiosInstance.post('task', task, getHeader()).then(success).catch(fail);
 };

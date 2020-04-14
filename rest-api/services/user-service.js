@@ -65,6 +65,9 @@ class UserService {
         return await User.find({}, 'firstName lastName username').exec();
     }
 
+    async deleteUser(userId) {
+        return await User.findOneAndDelete({_id: userId}).exec();
+    }
 }
 
 module.exports = new UserService();
