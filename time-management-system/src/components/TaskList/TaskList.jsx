@@ -31,6 +31,10 @@ const TaskList = (props) => {
         });
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+    const formatDate = (date) => {
+        return `${date.getFullYear()}.${date.getMonth()}.${date.getDate()}`
+    };
+
     const filteredTasks = [];
 
     if (tasks) {
@@ -89,7 +93,7 @@ const TaskList = (props) => {
             ));
             return (
                 <tr>
-                    <td>{taskDate.toDateString()}</td>
+                    <td>{formatDate(taskDate)}</td>
                     <td>{task.totalWorkingHours}</td>
                     <td>{noteList}</td>
                 </tr>

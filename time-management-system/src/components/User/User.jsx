@@ -169,13 +169,9 @@ const User = (props) => {
             id: userId
         };
 
-        if (firstNameInput.isDirty && firstNameInput.valid) {
-            user['firstName'] = firstNameInput.value;
-        }
         
-        if (lastNameInput.isDirty && lastNameInput.valid) {
-            user['lastName'] = lastNameInput.value;
-        }
+        user['firstName'] = firstNameInput.value;
+        user['lastName'] = lastNameInput.value;
 
         if (usernameInput.isDirty && usernameInput.valid) {
             user['username'] = usernameInput.value;
