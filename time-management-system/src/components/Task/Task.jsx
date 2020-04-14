@@ -32,7 +32,7 @@ const Task = (props) => {
 
     const [loader, setLoader] = useState(taskId ? true : false);
     const [messageState, setMessageState] = useState({ show: false, header: null, message: null });
-    const backUrl = userId ? `user/${userId}/tasks` : '/tasks';
+    const backUrl = userId ? `/user/${userId}/tasks` : '/tasks';
     
     const history = useHistory();
     const onCancel = useCallback(() => {

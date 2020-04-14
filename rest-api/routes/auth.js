@@ -27,8 +27,7 @@ router.post('/login', async (req, res) => {
 router.post('/register', async (req, res) => {
     try {
         const user = await userService.create(req.body);
-        const token = authService.createJWT(user);
-        const currentUserData = authService.getCurrentUserData(user, token);
+        const currentUserData = authService.getCurrentUserData(user, null);
 
         res.status(201).send(currentUserData);
     } catch (error) {

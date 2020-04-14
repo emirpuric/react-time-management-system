@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const taskService = require('../services/task-service');
 const userService = require('../services/user-service');
+const verifyToken = require('../helper/auth-helper');
 
 router.get('/task/:id', async (req, res) => {
     const id = req.params.id;
@@ -57,7 +58,7 @@ router.delete('/task/:id', async (req, res) => {
     }
 });
 
-router.get('/user/:userId/tasks', async (req, res) => {
+router.get('/user/:userId/tasks', verifyToken, async (req, res) => {
     const userId = req.params.userId;
     const user = await userService.getPreferredWorkingHoursPerDay(userId);
     const preferredWorkingHoursPerDay = user.preferredWorkingHoursPerDay
