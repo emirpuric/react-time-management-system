@@ -4,7 +4,8 @@ import { Button, Form, Spinner } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import MessageModal from '../MessageModal/MessageModal';
 import { StateContext, hasManagerRole, hasAdminRole } from '../../contexts';
-import { getUser, updateUser, signup } from '../../api-client';
+import { getUser, updateUser, signup, deleteUser } from '../../api-client';
+import './User.css';
 
 const User = (props) => {
     const history = useHistory();
@@ -128,12 +129,14 @@ const User = (props) => {
 
     const handleSubmit = async event => {
         event.preventDefault();
+        const successMsg = userId ? 'User updated' : 'User created';
+        const failMsg = userId ? 'Update a user failed.' : 'Create a new user failed.'
         const success = (resp) => {
-            setMessageState({ show: true, header: 'User created', message: 'New user created.' });
+            setMessageState({ show: true, header: title, message: successMsg });
         };
 
         const fail = () => {
-            setMessageState({ show: true, header: 'Error occured', message: 'User not created, please try again.' });
+            setMessageState({ show: true, header: title, message: failMsg });
         };
 
         let user;
@@ -190,19 +193,24 @@ const User = (props) => {
             user['roles'] = rolesInput.value;
         }
 
-        user['roles'] = 4;
-
         updateUser(user, success, fail);
     };
 
-    const handleModalHide = () => {
-        setMessageState({ show: false, header: null, message: null });
-    };
+    const redirect = () => {
+        history.push('/users');
+    }
+    
+    const handleDeleteUser = () => {
+        const success = (resp) => {
+            setMessageState({ show: true, header: 'Delete User', message: 'User deleted' });
+        };
 
-    const onSave = useCallback((event) => {
-        event.preventDefault();
-        setMessageState({ show: true, header: 'Success', message: 'New user saved!' });
-    }, [messageState]);
+        const fail = () => {
+            setMessageState({ show: true, header: 'Delete User', message: 'Error occured' });
+        }; 
+
+        deleteUser(userId, success, fail);
+    };
     
     return (
         <div className="Form-wrapper">
@@ -210,6 +218,14 @@ const User = (props) => {
 
             {loader &&
             <Spinner animation="border" variant="primary" />
+            }
+
+           {userId &&
+            <div className="User-action">
+                <Button variant="danger" className="float-right" onClick={handleDeleteUser}>
+                    Delete
+                </Button>
+            </div>
             }
 
             <Form className="Home-form" onSubmit={handleSubmit}>
@@ -276,7 +292,7 @@ const User = (props) => {
                 </div>
             </Form>
 
-            <MessageModal show={messageState.show} header={messageState.header} message={messageState.message} onHide={setMessageState} />
+            <MessageModal show={messageState.show} header={messageState.header} message={messageState.message} onHide={setMessageState} closeAction={redirect} />
             
         </div>
     );

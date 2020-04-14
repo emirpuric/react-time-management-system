@@ -7,7 +7,6 @@ import { StateContext } from '../../contexts';
 import { useContext } from 'react';
 
 const Login = () => {
-    const [submitDisabled, setSubmitDisabled] = useState(true);
     const [messageState, setMessageState] = useState({ show: false, header: null, message: null });
     const stateContext = useContext(StateContext);
 
@@ -27,6 +26,8 @@ const Login = () => {
             } else {
                 usernameInput.setValid(true);
             }
+        } else {
+            valid = false;
         }
 
         if (passwordInput.isDirty) {
@@ -39,16 +40,15 @@ const Login = () => {
             } else {
                 passwordInput.setValid(true);
             }
+        } else {
+            valid = false;
         }
 
         return valid;
     };
 
     const handleBlur = () => {
-        let valid = validateForm();
-        let formCompleted = usernameInput.isDirty && passwordInput.isDirty;
-        let enable = valid && formCompleted;
-        setSubmitDisabled(!enable);
+        validateForm();
     };
 
     const handleSubmit = event => {
@@ -73,7 +73,7 @@ const Login = () => {
         };
 
         const fail = (error) => {
-            setMessageState({ show: true, header: 'Error occured', message: error.response.data.error });
+            setMessageState({ show: true, header: 'Error occured', message: 'An Unexpected Error Occurred' });
         };
 
         login(credentials, success, fail);
@@ -96,7 +96,7 @@ const Login = () => {
                     <Form.Text className="text-muted Alert"> {passwordInput.errorMessage} </Form.Text>
                 </Form.Group>
                 
-                <Button variant="primary" type="submit" disabled={submitDisabled}>
+                <Button variant="primary" type="submit">
                     Sign in
                 </Button>
             </Form>

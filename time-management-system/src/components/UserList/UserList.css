@@ -18,10 +18,14 @@
 
 .User-action-link {
     float: right;
-    margin-left: 10px;
+    margin-left: 15px;
 }
 
 .User-item-row {
     width: 100%;
+    overflow: hidden;
+}
+
+.Users-top-actions {
     overflow: hidden;
 }

@@ -69,7 +69,7 @@ th, td {
 .Task-filter .react-datepicker-wrapper {
     display: inline-block !important;
     margin-left: 5px;
-    width: 100px !important;
+    width: 150px !important;
 }
 
 .Task-filter {

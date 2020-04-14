@@ -32,11 +32,12 @@ const Task = (props) => {
 
     const [loader, setLoader] = useState(taskId ? true : false);
     const [messageState, setMessageState] = useState({ show: false, header: null, message: null });
+    const backUrl = userId ? `user/${userId}/tasks` : '/tasks';
     
     const history = useHistory();
     const onCancel = useCallback(() => {
-        history.push('/tasks');
-    }, [history]);
+        history.push(backUrl);
+    }, [history, backUrl]);
 
     useEffect(() => {
         if (taskId) {
@@ -51,10 +52,10 @@ const Task = (props) => {
                     hoursInput.setDirty(true);
                     setLoader(false);
                 } else {
-                    history.push('/tasks');
+                    history.push(backUrl);
                 }
             }, (error) => {
-                history.push('/tasks');
+                history.push(backUrl);
             });
         }
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -101,7 +102,7 @@ const Task = (props) => {
     };
 
     const redirect = () => {
-        history.push('/tasks');
+        history.push(backUrl);
     }
 
     const handleSubmit = (event) => {

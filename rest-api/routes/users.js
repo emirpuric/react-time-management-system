@@ -35,8 +35,19 @@ router.put('/user', async (req, res) => {
     }
 });
 
-router.delete('/user/:id', (req, res) => {
+router.delete('/user/:id', async (req, res) => {
+    const id = req.params.id;
 
+    if (!id) {
+        res.status(400).send();
+    }
+
+    try {
+        await userService.deleteUser(id);
+        res.status(200).send();
+    } catch(error) {
+        res.status(500).send();
+    }
 });
 
 router.get('/users/', async (req, res) => {

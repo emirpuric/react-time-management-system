@@ -37,6 +37,10 @@ export const getUsers = (success, fail) => {
     axiosInstance.get('users', getHeader()).then(success).catch(fail);
 };
 
+export const deleteUser = (id, success, fail) => {
+    axiosInstance.delete('user/' + id, getHeader()).then(success).catch(fail);
+};
+
 // TASK ACTIONS
 
 export const getTasks = (userId, success, fail) => {
