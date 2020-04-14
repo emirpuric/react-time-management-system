@@ -3,6 +3,10 @@ const taskService = require('../services/task-service');
 const userService = require('../services/user-service');
 const verifyToken = require('../helper/auth-helper');
 
+const hasAdminRole = (roles) => {
+    return (roles & 4) > 0;
+} 
+
 router.get('/task/:id', async (req, res) => {
     const id = req.params.id;
 
@@ -60,6 +64,11 @@ router.delete('/task/:id', async (req, res) => {
 
 router.get('/user/:userId/tasks', verifyToken, async (req, res) => {
     const userId = req.params.userId;
+    
+    if (userId != req.user.id && !hasAdminRole(req.user.roles)) {
+        return res.status(401).send();
+    }
+
     const user = await userService.getPreferredWorkingHoursPerDay(userId);
     const preferredWorkingHoursPerDay = user.preferredWorkingHoursPerDay
     const tasks = await taskService.getForUser(userId);

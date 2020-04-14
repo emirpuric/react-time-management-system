@@ -7,6 +7,7 @@ class AuthService {
 
     createJWT(user) {
         const jwdUserData = {
+            id: user._id,
             username: user.username,
             roles: user.roles
         };
